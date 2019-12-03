@@ -5,3 +5,7 @@ body {
 html,body, #root ,.App, .container , .container > .row{
   height: 100%;
 }
+
+table td{
+  border: 1px white  solid;
+}
