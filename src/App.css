@@ -19,5 +19,6 @@ table td{
 }
 
 .number.blank{
-  background-color: black;
+  background-color: #444343;
+  color:  transparent;;
 }

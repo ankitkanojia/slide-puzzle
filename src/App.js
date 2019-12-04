@@ -5,7 +5,34 @@ class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      isInitialize: false,
+      numberBlock: []
     };
+  }
+
+  shuffle = async () => {
+    const arra1 = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9];
+    var ctr = arra1.length, temp, index;
+    while (ctr > 0) {
+
+      index = Math.floor(Math.random() * ctr);
+      ctr--;
+      temp = arra1[ctr];
+      arra1[ctr] = arra1[index];
+      arra1[index] = temp;
+    }
+    return arra1;
+  }
+
+  async componentDidMount() {
+    const shuffledNumber = await this.shuffle();
+    this.setState({
+      numberBlock: shuffledNumber
+    }, () => {
+      this.setState({
+        isInitialize: true
+      });
+    });
   }
 
   render() {
@@ -18,11 +45,12 @@ class App extends React.Component {
               <h3 className="text-center text-white">Arrange puzzle in numeric order</h3><br />
               <table className="d-flex justify-content-center" width="400px">
                 <tbody>
-                  {[...Array(3)].map((data, index) => {
+                  {this.state.isInitialize && [...Array(3)].map((data, index) => {
                     return <tr>
                       {[...Array(3)].map((data, sindex) => {
                         counter = counter + 1;
-                        return <td className="number" width="130px" height="130px">{counter}</td>
+                        const currentNumber = this.state.numberBlock[counter];
+                        return <td className={"number " + (currentNumber === 0 ? " blank" : "")} width="130px" height="130px">{currentNumber}</td>
                       })}
                     </tr>
                   })}
