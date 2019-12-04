@@ -19,6 +19,10 @@ table td{
 }
 
 .number.blank{
-  background-color: #444343;
+  background-color: yellow;
   color:  transparent;;
+}
+
+.number:hover{
+  cursor: pointer;
 }

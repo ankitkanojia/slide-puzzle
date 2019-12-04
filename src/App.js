@@ -6,7 +6,8 @@ class App extends React.Component {
     super(props);
     this.state = {
       isInitialize: false,
-      numberBlock: []
+      numberBlock: [],
+      blankPosition : 0
     };
   }
 
@@ -25,8 +26,10 @@ class App extends React.Component {
 
   async componentDidMount() {
     const shuffledNumber = await this.shuffle();
+    const blankPosition = shuffledNumber.indexOf(0);
     this.setState({
-      numberBlock: shuffledNumber
+      numberBlock: shuffledNumber,
+      blankPosition : blankPosition
     }, () => {
       this.setState({
         isInitialize: true
@@ -53,18 +56,31 @@ class App extends React.Component {
   }
 
   positionChange = (type) => {
-    if(type === "up")
-    {
-      
-    }else if(type === "down")
-    {
-  
-    }else if(type === "left")
-    {
-     
-    }else if(type === "right")
-    {
-     
+    if (type === "up") {
+
+    } else if (type === "down") {
+
+    } else if (type === "left") {
+
+    } else if (type === "right") {
+
+    }
+  }
+
+  swapNumbers = (event) => {
+    let index = event.target.id;
+    let updatedArrayBlock = this.state.numberBlock;
+    let currentValue = updatedArrayBlock[index];
+    if (currentValue === 0) {
+      return;
+    } else {
+      let updatedArrayBlock = this.state.numberBlock;
+      updatedArrayBlock[this.state.blankPosition] = currentValue;
+      updatedArrayBlock[index] = 0;
+      this.setState({
+        blankPosition: index,
+        numberBlock: updatedArrayBlock
+      });
     }
   }
 
@@ -79,11 +95,11 @@ class App extends React.Component {
               <table className="d-flex justify-content-center" width="400px">
                 <tbody>
                   {this.state.isInitialize && [...Array(3)].map((data, index) => {
-                    return <tr>
-                      {[...Array(3)].map((data, sindex) => {
+                    return <tr key={index}>
+                      {[...Array(3)].map((sdata, sindex) => {
                         counter = counter + 1;
                         const currentNumber = this.state.numberBlock[counter];
-                        return <td className={"number " + (currentNumber === 0 ? " blank" : "")} width="130px" height="130px">{currentNumber}</td>
+                        return <td id={counter} key={counter} onClick={this.swapNumbers}  className={"number " + (currentNumber === 0 ? " blank" : "")} width="130px" height="130px">{currentNumber}</td>
                       })}
                     </tr>
                   })}
