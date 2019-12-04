@@ -14,7 +14,6 @@ class App extends React.Component {
     const arra1 = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9];
     var ctr = arra1.length, temp, index;
     while (ctr > 0) {
-
       index = Math.floor(Math.random() * ctr);
       ctr--;
       temp = arra1[ctr];
@@ -33,6 +32,40 @@ class App extends React.Component {
         isInitialize: true
       });
     });
+
+    document.addEventListener("keydown", this.handleKeyDown);
+  }
+
+  componentWillUnmount() {
+    document.removeEventListener("keydown", this.handleKeyDown);
+  }
+
+  handleKeyDown = (e) => {
+    if (e.keyCode === 38) {
+      this.positionChange("up");
+    } else if (e.keyCode === 40) {
+      this.positionChange("down");
+    } else if (e.keyCode === 37) {
+      this.positionChange("left");
+    } else if (e.keyCode === 39) {
+      this.positionChange("right");
+    }
+  }
+
+  positionChange = (type) => {
+    if(type === "up")
+    {
+      
+    }else if(type === "down")
+    {
+  
+    }else if(type === "left")
+    {
+     
+    }else if(type === "right")
+    {
+     
+    }
   }
 
   render() {
