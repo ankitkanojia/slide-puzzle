@@ -9,6 +9,7 @@ class App extends React.Component {
   }
 
   render() {
+    let counter = 0;
     return (
       <div className="App">
         <div className="container d-flex justify-content-center align-items-center">
@@ -19,9 +20,10 @@ class App extends React.Component {
                 <tbody>
                   {[...Array(3)].map((data, index) => {
                     return <tr>
-                      {[...Array(3)].map((data, index) => {
-                            return <td width="130px" height="130px">&nbsp;</td>
-                          })}
+                      {[...Array(3)].map((data, sindex) => {
+                        counter = counter + 1;
+                        return <td className="number" width="130px" height="130px">{counter}</td>
+                      })}
                     </tr>
                   })}
                 </tbody>

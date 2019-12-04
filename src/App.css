@@ -9,3 +9,15 @@ html,body, #root ,.App, .container , .container > .row{
 table td{
   border: 1px white  solid;
 }
+
+.number{
+  text-align: center;
+  color: black;
+  background-color: white;
+  border: 1px solid #333;
+  font-size: 60px;
+}
+
+.number.blank{
+  background-color: black;
+}
