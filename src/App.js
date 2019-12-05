@@ -6,8 +6,10 @@ class App extends React.Component {
     super(props);
     this.state = {
       isInitialize: false,
+      isCompleted : false,
       numberBlock: [],
       blankPosition : 0,
+      finalAnswer: [],
       slidePosition: [
         { left: false, right: true, up: false, down: true }, { left: true, right: true, up: false, down: true }, { left: true, right: false, up: false, down: true },
         { left: false, right: true, up: true, down: true }, { left: true, right: true, up: true, down: true }, { left: true, right: true, up: true, down: true },   
@@ -16,8 +18,22 @@ class App extends React.Component {
     };
   }
 
+  sortNumber = (a, b) =>{
+    return a - b;
+  }
+
   shuffle = async () => {
-    const arra1 = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9];
+    var arr = [];
+    while(arr.length < 9){
+        var r = Math.floor(Math.random() * 900) + 1;
+        if(arr.indexOf(r) === -1) arr.push(r);
+    }
+    this.setState({
+      finalAnswer : arr.sort(this.sortNumber).concat(0)
+    });
+
+    let arra1 = arr;
+    arra1.push(0);
     var ctr = arra1.length, temp, index;
     while (ctr > 0) {
       index = Math.floor(Math.random() * ctr);
@@ -138,7 +154,7 @@ class App extends React.Component {
                       {[...Array(3)].map((sdata, sindex) => {
                         counter = counter + 1;
                         const currentNumber = this.state.numberBlock[counter];
-                        return <td id={counter} key={counter} onClick={this.verifySwapImages}  className={"number " + (currentNumber === 0 ? " blank" : "")} width="130px" height="130px">{currentNumber}</td>
+                        return <td id={counter} key={counter} onClick={this.verifySwapImages}  className={"number " + (currentNumber === 0 ? " blank" : "") + (this.state.isCompleted ? " isCompleted" : "") } width="130px" height="130px">{currentNumber}</td>
                       })}
                     </tr>
                   })}

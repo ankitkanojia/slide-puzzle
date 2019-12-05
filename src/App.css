@@ -26,3 +26,14 @@ table td{
 .number:hover{
   cursor: pointer;
 }
+
+td.completed{
+  background: green;
+  color : white
+}
+
+td.completed.blank{
+  background-color:transparent;
+  color:transparent;
+  border:none;
+}
