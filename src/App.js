@@ -25,7 +25,7 @@ class App extends React.Component {
   shuffle = async () => {
     var arr = [];
     while(arr.length < 9){
-        var r = Math.floor(Math.random() * 900) + 1;
+        var r = Math.floor(Math.random() * 10) + 1;
         if(arr.indexOf(r) === -1) arr.push(r);
     }
     this.setState({
@@ -62,6 +62,22 @@ class App extends React.Component {
 
   componentWillUnmount() {
     document.removeEventListener("keydown", this.handleKeyDown);
+  }
+
+  verifyAnswer = () => {
+    let isCompleted = true;
+    this.state.finalAnswer.map((data, index) => {
+        if(data !== this.state.numberBlock[index]){
+          isCompleted = false;
+        }
+    });
+
+    if(isCompleted)
+    {
+      this.setState({
+        isCompleted : true
+      });
+    }
   }
 
   handleKeyDown = (e) => {
@@ -137,6 +153,7 @@ class App extends React.Component {
         numberBlock: updatedArrayBlock
       });
     }
+    this.verifyAnswer();
   }
 
   render() {
