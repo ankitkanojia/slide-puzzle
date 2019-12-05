@@ -1,5 +1,6 @@
 import React from 'react';
 import './App.css';
+import { parse } from 'path';
 
 class App extends React.Component {
   constructor(props) {
@@ -67,10 +68,24 @@ class App extends React.Component {
     }
   }
 
-  swapNumbers = (event) => {
-    let index = event.target.id;
+  verifySwapImages = (event) => {
+    let index = parseInt(event.target.id);
+    const cPo = this.state.blankPosition;
+    if ((cPo - 3) === index) {
+      this.swapNumbers(index);
+    } else if ((cPo + 3) === index) {
+      this.swapNumbers(index);
+    } else if ((cPo - 1) === index) {
+      this.swapNumbers(index);
+    } else if ((cPo + 1) === index) {
+      this.swapNumbers(index);
+    }
+  }
+
+  swapNumbers = (index) => {
     let updatedArrayBlock = this.state.numberBlock;
     let currentValue = updatedArrayBlock[index];
+    console.log("index");
     if (currentValue === 0) {
       return;
     } else {
@@ -99,7 +114,7 @@ class App extends React.Component {
                       {[...Array(3)].map((sdata, sindex) => {
                         counter = counter + 1;
                         const currentNumber = this.state.numberBlock[counter];
-                        return <td id={counter} key={counter} onClick={this.swapNumbers}  className={"number " + (currentNumber === 0 ? " blank" : "")} width="130px" height="130px">{currentNumber}</td>
+                        return <td id={counter} key={counter} onClick={this.verifySwapImages}  className={"number " + (currentNumber === 0 ? " blank" : "")} width="130px" height="130px">{currentNumber}</td>
                       })}
                     </tr>
                   })}
