@@ -1,6 +1,5 @@
 import React from 'react';
 import './App.css';
-import { parse } from 'path';
 
 class App extends React.Component {
   constructor(props) {
@@ -8,7 +7,12 @@ class App extends React.Component {
     this.state = {
       isInitialize: false,
       numberBlock: [],
-      blankPosition : 0
+      blankPosition : 0,
+      slidePosition: [
+        { left: false, right: true, up: false, down: true }, { left: true, right: true, up: false, down: true }, { left: true, right: false, up: false, down: true },
+        { left: false, right: true, up: true, down: true }, { left: true, right: true, up: true, down: true }, { left: true, right: true, up: true, down: true },   
+        { left: false, right: true, up: true, down: false }, { left: true, right: true, up: true, down: false }, { left: true, right: false, up: true, down: false },   
+      ]
     };
   }
 
@@ -57,14 +61,35 @@ class App extends React.Component {
   }
 
   positionChange = (type) => {
-    if (type === "up") {
-
-    } else if (type === "down") {
-
-    } else if (type === "left") {
-
-    } else if (type === "right") {
-
+    const cPo = this.state.blankPosition;
+    if(type === "up")
+    {
+      const nextPositionObject = this.state.slidePosition[cPo + 2];
+      if(nextPositionObject && nextPositionObject.up)
+      {
+        this.swapNumbers(cPo + 3);
+      }
+    }else if(type === "down")
+    {
+      const nextPositionObject = this.state.slidePosition[cPo - 4];
+      if(nextPositionObject && nextPositionObject.down)
+      {
+        this.swapNumbers(cPo - 3);
+      }
+    }else if(type === "left")
+    {
+      const nextPositionObject = this.state.slidePosition[cPo];
+      if(nextPositionObject && nextPositionObject.left)
+      {
+        this.swapNumbers(cPo + 1);
+      }
+    }else if(type === "right")
+    {
+      const nextPositionObject = this.state.slidePosition[cPo - 1];
+      if(nextPositionObject && nextPositionObject.left)
+      {
+        this.swapNumbers(cPo - 1);
+      }
     }
   }
 
@@ -85,7 +110,6 @@ class App extends React.Component {
   swapNumbers = (index) => {
     let updatedArrayBlock = this.state.numberBlock;
     let currentValue = updatedArrayBlock[index];
-    console.log("index");
     if (currentValue === 0) {
       return;
     } else {
