@@ -66,7 +66,12 @@ class App extends React.Component {
 
   verifyAnswer = () => {
     let isCompleted = true;
-    this.state.finalAnswer.map((data, index) => {
+    let finalAnswer = [...this.state.numberBlock];//.sort((a, b) => a > b)
+    finalAnswer = finalAnswer.slice(1, this.state.numberBlock.length);
+    finalAnswer = finalAnswer.sort(this.sortNumber);
+    finalAnswer = finalAnswer.slice(1, finalAnswer.length);
+    finalAnswer.push(0);
+    finalAnswer.map((data, index) => {
         if(data !== this.state.numberBlock[index]){
           isCompleted = false;
         }
