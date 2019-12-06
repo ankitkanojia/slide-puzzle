@@ -28,10 +28,6 @@ class App extends React.Component {
         var r = Math.floor(Math.random() * 10) + 1;
         if(arr.indexOf(r) === -1) arr.push(r);
     }
-    this.setState({
-      finalAnswer : arr.sort(this.sortNumber).concat(0)
-    });
-
     let arra1 = arr;
     arra1.push(0);
     var ctr = arra1.length, temp, index;
@@ -50,6 +46,7 @@ class App extends React.Component {
     const blankPosition = shuffledNumber.indexOf(0);
     this.setState({
       numberBlock: shuffledNumber,
+      finalAnswer : shuffledNumber,
       blankPosition : blankPosition
     }, () => {
       this.setState({
@@ -64,15 +61,17 @@ class App extends React.Component {
     document.removeEventListener("keydown", this.handleKeyDown);
   }
 
-  verifyAnswer = () => {
+  verifyAnswer = async () => {
     let isCompleted = true;
-    let finalAnswer = [...this.state.numberBlock];//.sort((a, b) => a > b)
-    finalAnswer = finalAnswer.slice(1, this.state.numberBlock.length);
+    let finalAnswer = [...this.state.finalAnswer];
+    let updatednumberBlock = [...this.state.numberBlock];
+    updatednumberBlock = updatednumberBlock.slice(1, this.state.numberBlock.length + 1);
+    finalAnswer = finalAnswer.slice(1, this.state.numberBlock.length + 1);
     finalAnswer = finalAnswer.sort(this.sortNumber);
-    finalAnswer = finalAnswer.slice(1, finalAnswer.length);
+    finalAnswer = finalAnswer.slice(1, this.state.numberBlock.length + 1);
     finalAnswer.push(0);
-    finalAnswer.map((data, index) => {
-        if(data !== this.state.numberBlock[index]){
+    finalAnswer.map(async (data, index) => {
+        if(data !== updatednumberBlock[index]){
           isCompleted = false;
         }
     });
