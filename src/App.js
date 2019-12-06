@@ -25,7 +25,7 @@ class App extends React.Component {
   shuffle = async () => {
     var arr = [];
     while(arr.length < 9){
-        var r = Math.floor(Math.random() * 10) + 1;
+        var r = Math.floor(Math.random() * 999) + 1;
         if(arr.indexOf(r) === -1) arr.push(r);
     }
     let arra1 = arr;
